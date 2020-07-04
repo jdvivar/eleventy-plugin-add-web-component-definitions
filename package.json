@@ -1,6 +1,6 @@
 {
   "name": "eleventy-plugin-add-web-component-definitions",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "keywords": [],
