@@ -24,7 +24,7 @@ The plugin will transform it, with default options, into:
 ## How to use
 
 First, install it:
-```
+```bash
 npm install --save-dev eleventy-plugin-add-web-component-definitions
 ```
 
