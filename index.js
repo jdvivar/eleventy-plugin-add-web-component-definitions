@@ -3,7 +3,7 @@ const { JSDOM } = jsdom
 
 module.exports = function (eleventyConfig, options) {
   options.path = options.path || function (tag) { return `/js/components/${tag}/${tag}.js` }
-  options.placement = options.placement || 'beforeend'
+  options.position = options.position || 'beforeend'
   options.verbose = options.verbose || false
   options.quiet = options.quiet || false
 
@@ -17,17 +17,17 @@ module.exports = function (eleventyConfig, options) {
       const regex = /<\/(\w+(-\w+)+)>/g
       const matches = body.matchAll(regex)
       const tagsSet = new Set()
-      for (match of matches) {
+      for (const match of matches) {
         tagsSet.add(match[1])
       }
       if (options.verbose) {
         console.log(`[add-web-component-definitions] Tags found in ${outputPath}:`, tagsSet)
       }
-      for (tag of tagsSet) {
+      for (const tag of tagsSet) {
         if (!options.quiet) {
           console.log('[add-web-component-definitions] Adding definition for tag: ', tag)
         }
-        dom.window.document.body.insertAdjacentHTML(options.placement, `<script type="module" src="${options.path(tag)}"></script>`)
+        dom.window.document.body.insertAdjacentHTML(options.position, `<script type="module" src="${options.path(tag)}"></script>`)
       }
       return dom.serialize()
     }

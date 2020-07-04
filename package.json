@@ -21,15 +21,20 @@
     "@commitlint/cli": "^9.0.1",
     "@commitlint/config-conventional": "^9.0.1",
     "husky": "^4.2.5",
+    "standard": "^14.3.4",
     "standard-version": "^8.0.0"
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm test"
     }
   },
   "scripts": {
-    "release": "standard-version && git push --follow-tags origin master && npm publish"
+    "release": "standard-version && git push --follow-tags origin master && npm publish",
+    "test": "npm run lint",
+    "lint": "standard",
+    "lint-fix": "standard --fix"
   },
   "repository": "github:jdvivar/eleventy-plugin-add-web-component-definitions"
 }
