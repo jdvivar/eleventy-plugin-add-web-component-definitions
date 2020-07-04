@@ -2,8 +2,7 @@ const jsdom = require('jsdom')
 const { JSDOM } = jsdom
 
 module.exports = function (eleventyConfig, options) {
-  options.path = options.path || '/js/components'
-  options.srcTemplate = options.srcTemplate || function (tag) { return `${options.path}/${tag}/${tag}.js` }
+  options.path = options.path || function (tag) { return `/js/components/${tag}/${tag}.js` }
   options.placement = options.placement || 'beforeend'
   options.verbose = options.verbose || false
   options.quiet = options.quiet || false
@@ -28,7 +27,7 @@ module.exports = function (eleventyConfig, options) {
         if (!options.quiet) {
           console.log('[add-web-component-definitions] Adding definition for tag: ', tag)
         }
-        dom.window.document.body.insertAdjacentHTML(options.placement, `<script type="module" src="${options.srcTemplate(tag)}"></script>`)
+        dom.window.document.body.insertAdjacentHTML(options.placement, `<script type="module" src="${options.path(tag)}"></script>`)
       }
       return dom.serialize()
     }
