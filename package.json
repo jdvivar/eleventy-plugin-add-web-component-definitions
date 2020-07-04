@@ -3,7 +3,15 @@
   "version": "1.0.3",
   "description": "",
   "main": "index.js",
-  "keywords": ["eleventy", "11ty", "plugin", "webcomponents", "wc", "web-components", "eleventy-plugin"],
+  "keywords": [
+    "eleventy",
+    "11ty",
+    "plugin",
+    "webcomponents",
+    "wc",
+    "web-components",
+    "eleventy-plugin"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {

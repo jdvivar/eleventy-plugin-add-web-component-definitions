@@ -3,7 +3,7 @@ const { JSDOM } = jsdom
 
 module.exports = function (eleventyConfig, options) {
   options.path = options.path || '/js/components'
-  options.srcTemplate = options.srcTemplate || function (tag) { return `${options.path}/${tag}/${tag}.js"></script>` }
+  options.srcTemplate = options.srcTemplate || function (tag) { return `${options.path}/${tag}/${tag}.js` }
   options.placement = options.placement || 'beforeend'
   options.verbose = options.verbose || false
   options.quiet = options.quiet || false
