@@ -1,6 +1,6 @@
 {
   "name": "eleventy-plugin-add-web-component-definitions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -8,5 +8,19 @@
   "license": "MIT",
   "dependencies": {
     "jsdom": "^16.2.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
+    "husky": "^4.2.5",
+    "standard-version": "^8.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "scripts": {
+    "release": "standard-version"
   }
 }
