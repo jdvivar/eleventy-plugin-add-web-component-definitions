@@ -23,7 +23,12 @@ The plugin will transform it, with default options, into:
 
 ## How to use
 
-In your `.eleventy.js` configuration file:
+First, install it:
+```
+npm install --save-dev eleventy-plugin-add-web-component-definitions
+```
+
+Then, in your `.eleventy.js` configuration file, add:
 ```js
 // Together with your other imports
 const addWebComponentDefinitions = require('eleventy-plugin-add-web-component-definitions')
