@@ -21,6 +21,7 @@
     }
   },
   "scripts": {
-    "release": "standard-version"
-  }
+    "release": "standard-version && git push --follow-tags origin master && npm publish"
+  },
+  "repository": "github:jdvivar/eleventy-plugin-add-web-component-definitions"
 }
