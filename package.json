@@ -2,7 +2,7 @@
   "name": "eleventy-plugin-add-web-component-definitions",
   "version": "1.1.2",
   "description": "",
-  "main": "index.js",
+  "main": ".eleventy.js",
   "keywords": [
     "eleventy",
     "11ty",
@@ -18,23 +18,31 @@
     "jsdom": "^16.2.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^9.0.1",
-    "@commitlint/config-conventional": "^9.0.1",
+    "@11ty/eleventy": "^0.11.1",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "ava": "^3.14.0",
     "husky": "^4.2.5",
-    "standard": "^14.3.4",
-    "standard-version": "^8.0.0"
+    "standard": "^16.0.3",
+    "standard-version": "^9.0.0"
   },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm test"
+      "pre-commit": "npm run lint"
     }
   },
   "scripts": {
     "release": "standard-version && git push --follow-tags origin master && npm publish",
-    "test": "npm run lint",
+    "test": "npx ava",
+    "demo": "npx @11ty/eleventy --input=sample --output=sample/_site --config=sample/.eleventy.js",
     "lint": "standard",
     "lint-fix": "standard --fix"
   },
-  "repository": "github:jdvivar/eleventy-plugin-add-web-component-definitions"
+  "repository": "github:jdvivar/eleventy-plugin-add-web-component-definitions",
+  "ava": {
+    "files": [
+      "./test/**/*.test.js"
+    ]
+  }
 }
