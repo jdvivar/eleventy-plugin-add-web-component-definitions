@@ -67,10 +67,10 @@ You can also specify a unique path for any custom-tag, which overrides the path 
 ```js
 eleventyConfig.addPlugin(addWebComponentDefinitions, {
   specifiers: {
-    custom-tag-one: tag => project.environment === 'production'
+    'custom-tag-one': tag => project.environment === 'production'
       ? `/alpha-project/components/${tag}.js`
       : `/components/${tag}.js`,
-    custom-tag-two: 'my-module'
+    'custom-tag-two': 'my-module'
   }
 )
 ```
