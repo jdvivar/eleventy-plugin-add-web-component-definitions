@@ -37,7 +37,7 @@ test('Custom tag', t => {
       '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
       'index.html'
     ),
-    '<html><head></head><body><custom-tag>asdf</custom-tag><script type="module" src="/js/components/custom-tag/custom-tag.js"></script></body></html>'
+    '<html><head></head><body><custom-tag>asdf</custom-tag><script type="module">import "/js/components/custom-tag/custom-tag.js";</script></body></html>'
   )
 })
 
@@ -47,17 +47,17 @@ test('Configure path', t => {
       '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
       'index.html'
     ),
-    '<html><head></head><body><custom-tag>asdf</custom-tag><script type="module" src="/test/custom-tag.js"></script></body></html>'
+    '<html><head></head><body><custom-tag>asdf</custom-tag><script type="module">import "/test/custom-tag.js";</script></body></html>'
   )
 })
 
 test('Configure position', t => {
   t.is(
-    addWebComponentDefinitions.bind(null, { position: 'beforebegin' })(
+    addWebComponentDefinitions.bind(null, { position: 'afterbegin' })(
       '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
       'index.html'
     ),
-    '<html><head></head><script type="module" src="/js/components/custom-tag/custom-tag.js"></script><body><custom-tag>asdf</custom-tag></body></html>'
+    '<html><head></head><body><script type="module">import "/js/components/custom-tag/custom-tag.js";</script><custom-tag>asdf</custom-tag></body></html>'
   )
 })
 
@@ -67,7 +67,7 @@ test('Configure verbose', t => {
       '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
       'index.html'
     ),
-    '<html><head></head><body><custom-tag>asdf</custom-tag><script type="module" src="/js/components/custom-tag/custom-tag.js"></script></body></html>'
+    '<html><head></head><body><custom-tag>asdf</custom-tag><script type="module">import "/js/components/custom-tag/custom-tag.js";</script></body></html>'
   )
 })
 
@@ -77,6 +77,16 @@ test('Configure silent', t => {
       '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
       'index.html'
     ),
-    '<html><head></head><body><custom-tag>asdf</custom-tag><script type="module" src="/js/components/custom-tag/custom-tag.js"></script></body></html>'
+    '<html><head></head><body><custom-tag>asdf</custom-tag><script type="module">import "/js/components/custom-tag/custom-tag.js";</script></body></html>'
+  )
+})
+
+test('Two custom tags', t => {
+  t.is(
+    addWebComponentDefinitions.bind(null, { silent: true })(
+      '<html><head></head><body><custom-one>asdf</custom-one><custom-two>qwer</custom-two></body></html>',
+      'index.html'
+    ),
+    '<html><head></head><body><custom-one>asdf</custom-one><custom-two>qwer</custom-two><script type="module">import "/js/components/custom-one/custom-one.js";\nimport "/js/components/custom-two/custom-two.js";</script></body></html>'
   )
 })
