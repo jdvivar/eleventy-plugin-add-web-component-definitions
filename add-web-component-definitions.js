@@ -1,13 +1,12 @@
 const jsdom = require('jsdom')
 const { JSDOM } = jsdom
 
-const options = {}
-options.path = options.path || function (tag) { return `/js/components/${tag}/${tag}.js` }
-options.position = options.position || 'beforeend'
-options.verbose = options.verbose || false
-options.quiet = options.quiet || false
+module.exports = function (options, content, outputPath) {
+  options.path = options.path || function (tag) { return `/js/components/${tag}/${tag}.js` }
+  options.position = options.position || 'beforeend'
+  options.verbose = options.verbose || false
+  options.quiet = options.quiet || false
 
-function transform (content, outputPath) {
   if (outputPath.endsWith('.html')) {
     if (options.verbose) {
       console.log('[add-web-component-definitions] Examining ', outputPath)
@@ -33,5 +32,3 @@ function transform (content, outputPath) {
   }
   return content
 }
-
-module.exports = transform
