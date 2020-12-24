@@ -16,7 +16,7 @@ The plugin will transform it, with default options, into:
 <html>
   <body>
     <custom-tag></custom-tag>
-    <script type="module" src="/js/components/custom-tag/custom-tag.js"></script>
+    <script type="module">import "/js/components/custom-tag/custom-tag.js"</script>
   </body>
 </html>
 ```
@@ -45,7 +45,7 @@ module.exports = function(eleventyConfig) {
 | name           |  type      | default          | description         |
 |----------------|------------|------------------|---------------------|
 | `path`         | `Function or String` | ``function (tag) { return `/js/components/${tag}/${tag}.js\` `` | Path where your components are published |
-| `specifiers` | `Object` | {}  | {<custom-tag>: <Function or String>} |
+| `specifiers` | `Object` | {}  | `{<custom-tag>: <Function or String>}` |
 | `position`     | `String`   | `beforeend`      | Position where the script tag will be put in regards to the `body` element, see other options in [MDN web](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML) |
 | `verbose`      | `Boolean`  | `false`          | It will console log each step, for debug purposes |
 | `quiet`        | `Boolean`  | `false`          | It won't console log anything. By default, a log of each Web Component definition is log out with this format: `[add-web-component-definitions] Adding definition for tag: custom-tag`|
@@ -70,7 +70,7 @@ eleventyConfig.addPlugin(addWebComponentDefinitions, {
     custom-tag-one: tag => project.environment === 'production'
       ? `/alpha-project/components/${tag}.js`
       : `/components/${tag}.js`,
-    custom-tag-two: "my-module"
+    custom-tag-two: 'my-module'
   }
 )
 ```
