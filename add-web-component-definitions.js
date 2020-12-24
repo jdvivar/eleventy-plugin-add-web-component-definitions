@@ -1,34 +1,64 @@
-const jsdom = require('jsdom')
-const { JSDOM } = jsdom
+const { parse } = require('parse5')
+const toHast = require('hast-util-from-parse5')
+const visit = require('unist-util-visit')
+const h = require('hastscript')
+const toHtml = require('hast-util-to-html')
+
+const isWebComponent = (tag) => tag && (/(\w+(-\w+)+)/g).test(tag)
+const logName = '[add-web-component-definitions]';
 
 module.exports = function (options, content, outputPath) {
-  options.path = options.path || function (tag) { return `/js/components/${tag}/${tag}.js` }
-  options.position = options.position || 'beforeend'
-  options.verbose = options.verbose || false
-  options.quiet = options.quiet || false
-
   if (outputPath.endsWith('.html')) {
+    options = Object.assign(
+      {
+        path: function (tag) { return `/js/components/${tag}/${tag}.js` },
+        position: 'beforeend',
+        verbose: false,
+        quiet: false
+      },
+      options)
+
     if (options.verbose) {
-      console.log('[add-web-component-definitions] Examining ', outputPath)
+      console.log(logName, 'Examining', outputPath)
     }
-    const dom = new JSDOM(content)
-    const body = dom.window.document.body.innerHTML
-    const regex = /<\/(\w+(-\w+)+)>/g
-    const matches = body.matchAll(regex)
-    const tagsSet = new Set()
-    for (const match of matches) {
-      tagsSet.add(match[1])
-    }
-    if (options.verbose) {
-      console.log(`[add-web-component-definitions] Tags found in ${outputPath}:`, tagsSet)
-    }
-    for (const tag of tagsSet) {
-      if (!options.quiet) {
-        console.log('[add-web-component-definitions] Adding definition for tag: ', tag)
+
+    const tags = new Set()
+    const tree = toHast(parse(content))
+    let body
+
+    visit(tree, 'element', (node) => {
+      if (!body && node.tagName === 'body') {
+        body = node
       }
-      dom.window.document.body.insertAdjacentHTML(options.position, `<script type="module" src="${options.path(tag)}"></script>`)
+      if (isWebComponent(node.tagName)) {
+        tags.add(node.tagName)
+      }
+      return node
+    })
+
+    if (options.verbose) {
+      console.log(logName, `Tags found in ${outputPath}:`, tags)
     }
-    return dom.serialize()
+
+    if (tags.size) {
+      const value = [...tags]
+        .map(tag => `import "${options.path(tag)}";`)
+        .map(v => {
+          if (!options.quiet) {
+            console.log(logName, v)
+          }
+          return v
+        })
+        .join('\n')
+
+      if (options.position === 'afterbegin') {
+        body.children.unshift(h('script', { type: 'module' }, [{ type: 'text', value }]))
+      } else {
+        body.children.push(h('script', { type: 'module' }, [{ type: 'text', value }]))
+      }
+    }
+
+    return toHtml(tree)
   }
   return content
 }
