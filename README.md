@@ -81,6 +81,13 @@ For a verbose output, do this:
 eleventyConfig.addPlugin(addWebComponentDefinitions, { verbose: true })
 ```
 
+### Demo
+
+Please find a demo at `/demo`, to see it working live just:
+```sh
+npm run demo
+```
+
 ### Questions? Feature requests?
 
 Please [open an issue](https://github.com/jdvivar/eleventy-plugin-add-web-component-definitions/issues/new) and I'll get back to you ASAP!
