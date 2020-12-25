@@ -31,6 +31,7 @@
     "@commitlint/config-conventional": "^11.0.0",
     "ava": "^3.14.0",
     "husky": "^4.2.5",
+    "servor": "^4.0.2",
     "standard": "^16.0.3",
     "standard-version": "^9.0.0"
   },
@@ -43,7 +44,7 @@
   "scripts": {
     "release": "standard-version && git push --follow-tags origin master && npm publish",
     "test": "npx ava",
-    "demo": "npx @11ty/eleventy --input=sample --output=sample/_site --config=sample/.eleventy.js",
+    "demo": "npx @11ty/eleventy --config=demo/.eleventy.js && npx servor demo/_site",
     "lint": "standard",
     "lint-fix": "standard --fix"
   },
