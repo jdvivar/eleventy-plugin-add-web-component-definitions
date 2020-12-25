@@ -1,4 +1,4 @@
-const AddWebComponentDefinitions = require("../.eleventy")
+const AddWebComponentDefinitions = require('../')
 
 module.exports = function(eleventyConfig) {
 	eleventyConfig.addPlugin(
