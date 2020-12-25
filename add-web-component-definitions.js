@@ -45,22 +45,22 @@ module.exports = function (options, content, outputPath) {
     if (tags.size) {
       const value = [...new Set(
         [...tags]
-        .map(tag => {
-          const path = options.specifier[tag] || options.path
-          const typeOfPath = typeof path
-          console.assert(
-            'string function'.split(' ').includes(typeOfPath),
-            { tag: tag, path: path, errorMsg: 'specifier/path must be a string or a function' }
-          )
-          const v = typeOfPath === 'string' ? path : path(tag);
-          return v ? `import "${v}";` : null
-        })
+          .map(tag => {
+            const path = options.specifier[tag] || options.path
+            const typeOfPath = typeof path
+            console.assert(
+              'string function'.split(' ').includes(typeOfPath),
+              { tag: tag, path: path, errorMsg: 'specifier/path must be a string or a function' }
+            )
+            const v = typeOfPath === 'string' ? path : path(tag)
+            return v ? `import "${v}";` : null
+          })
       )]
-      .filter(Boolean)
-      .join('\n')
-      
+        .filter(Boolean)
+        .join('\n')
+
       if (!options.quiet) {
-        value.split('\n').forEach(v => console.log(logName, v) )
+        value.split('\n').forEach(v => console.log(logName, v))
       }
 
       const child = h('script', { type: 'module' }, [{ type: 'text', value }])
