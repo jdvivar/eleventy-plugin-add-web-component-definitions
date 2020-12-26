@@ -44,10 +44,12 @@ module.exports = function(eleventyConfig) {
 
 | name           |  type      | default          | description         |
 |----------------|------------|------------------|---------------------|
-| `path`         | `Function` | ``function (tag) { return `/js/components/${tag}/${tag}.js\` `` | Path where your components are published |
-| `position`     | `String`   | `beforeend`      | Position where the script tag will be put in regards to the `body` element, see other options in [MDN web](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML) |
+| `path`         | `Function or String` | ``function (tag) { return `/js/components/${tag}/${tag}.js\` `` | Path where your components are published |
+| `specifiers` | `Object` | {}  | Input with this format `{<custom-tag>: <Function or String>}` to override a specific tag path, see below an example |
+| `position`     | `String`   | `beforeend`      | Position where the script tag will be put in regards to the `body` element, the other options being `afterbegin` |
 | `verbose`      | `Boolean`  | `false`          | It will console log each step, for debug purposes |
 | `quiet`        | `Boolean`  | `false`          | It won't console log anything. By default, a log of each Web Component definition is log out with this format: `[add-web-component-definitions] Adding definition for tag: custom-tag`|
+| `singleScript` | `Boolean` | `false`           | If true, only one script with import statements will be output: `<script type="module">import "js/components/custom-tag.js;</script>` |
 
 ### Example
 
@@ -61,10 +63,29 @@ eleventyConfig.addPlugin(addWebComponentDefinitions, {
   }
 )
 ```
+You can also specify a unique path for any custom-tag, which overrides the path configuration:
+
+```js
+eleventyConfig.addPlugin(addWebComponentDefinitions, {
+  specifiers: {
+    'custom-tag-one': tag => project.environment === 'production'
+      ? `/alpha-project/components/${tag}.js`
+      : `/components/${tag}.js`,
+    'custom-tag-two': 'my-module'
+  }
+)
+```
 
 For a verbose output, do this:
 ```js
 eleventyConfig.addPlugin(addWebComponentDefinitions, { verbose: true })
+```
+
+### Demo
+
+Please find a demo at `/demo`, to see it working live just:
+```sh
+npm run demo
 ```
 
 ### Questions? Feature requests?
