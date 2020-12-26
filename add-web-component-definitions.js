@@ -11,7 +11,7 @@ module.exports = function (options, content, outputPath) {
   if (outputPath.endsWith('.html')) {
     options = Object.assign(
       {
-        specifier: {},
+        specifiers: {},
         path: function (tag) { return `/js/components/${tag}/${tag}.js` },
         position: 'beforeend',
         verbose: false,
@@ -46,7 +46,7 @@ module.exports = function (options, content, outputPath) {
       const value = [...new Set(
         [...tags]
           .map(tag => {
-            const path = options.specifier[tag] || options.path
+            const path = options.specifiers[tag] || options.path
             const typeOfPath = typeof path
             console.assert(
               'string function'.split(' ').includes(typeOfPath),

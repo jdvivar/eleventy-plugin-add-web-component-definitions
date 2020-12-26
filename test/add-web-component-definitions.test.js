@@ -93,7 +93,7 @@ test('Two custom tags', t => {
 
 test('Import specifier string', t => {
   t.is(
-    addWebComponentDefinitions.bind(null, { specifier: { 'custom-tag': 'specifier' } })(
+    addWebComponentDefinitions.bind(null, { specifiers: { 'custom-tag': 'specifier' } })(
       '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
       'index.html'
     ),
@@ -103,7 +103,7 @@ test('Import specifier string', t => {
 
 test('Import specifier function', t => {
   t.is(
-    addWebComponentDefinitions.bind(null, { specifier: { 'custom-tag': (tag) => `my-${tag}` } })(
+    addWebComponentDefinitions.bind(null, { specifiers: { 'custom-tag': (tag) => `my-${tag}` } })(
       '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
       'index.html'
     ),
