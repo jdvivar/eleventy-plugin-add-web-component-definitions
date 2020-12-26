@@ -110,3 +110,25 @@ test('Import specifier function', t => {
     '<html><head></head><body><custom-tag>asdf</custom-tag><script type="module">import "my-custom-tag";</script></body></html>'
   )
 })
+
+test('Path cannot be a number', t => {
+  t.throws(() => {
+    addWebComponentDefinitions.bind(null, { path: 42 })(
+      '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
+      'index.html'
+    )
+  }, {
+    message: 'specifier/path should be either string or a function: 42?'
+  })
+})
+
+test('Specifier cannot be a number', t => {
+  t.throws(() => {
+    addWebComponentDefinitions.bind(null, { specifiers: { 'custom-tag': 42 } })(
+      '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
+      'index.html'
+    )
+  }, {
+    message: 'specifier/path should be either string or a function: 42?'
+  })
+})

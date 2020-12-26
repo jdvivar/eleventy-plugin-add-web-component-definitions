@@ -48,10 +48,9 @@ module.exports = function (options, content, outputPath) {
           .map(tag => {
             const path = options.specifiers[tag] || options.path
             const typeOfPath = typeof path
-            console.assert(
-              'string function'.split(' ').includes(typeOfPath),
-              { tag: tag, path: path, errorMsg: 'specifier/path must be a string or a function' }
-            )
+            if (!['string', 'function'].includes(typeOfPath)) {
+              throw new TypeError(`specifier/path should be either string or a function: ${path}?`)
+            }
             const v = typeOfPath === 'string' ? path : path(tag)
             return v ? `import "${v}";` : null
           })
