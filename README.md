@@ -46,7 +46,7 @@ module.exports = function(eleventyConfig) {
 |----------------|------------|------------------|---------------------|
 | `path`         | `Function or String` | ``function (tag) { return `/js/components/${tag}/${tag}.js\` `` | Path where your components are published |
 | `specifiers` | `Object` | {}  | `{<custom-tag>: <Function or String>}` |
-| `position`     | `String`   | `beforeend`      | Position where the script tag will be put in regards to the `body` element, see other options in [MDN web](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML) |
+| `position`     | `String`   | `beforeend`      | Position where the script tag will be put in regards to the `body` element, the other options being `afterbegin` |
 | `verbose`      | `Boolean`  | `false`          | It will console log each step, for debug purposes |
 | `quiet`        | `Boolean`  | `false`          | It won't console log anything. By default, a log of each Web Component definition is log out with this format: `[add-web-component-definitions] Adding definition for tag: custom-tag`|
 
