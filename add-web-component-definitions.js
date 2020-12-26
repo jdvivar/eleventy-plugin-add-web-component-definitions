@@ -55,14 +55,12 @@ module.exports = function (options, content, outputPath) {
       const arrayOfValues = [...new Set(
         [...tags]
           .map(tag => {
-            const thisPath = options.specifiers[tag] || options.path
-            const typeOfPath = typeof thisPath
+            const path = options.specifiers[tag] || options.path
+            const typeOfPath = typeof path
             if (!['string', 'function'].includes(typeOfPath)) {
-              throw new TypeError(`specifier/path should be either string or a function: ${thisPath}?`)
+              throw new TypeError(`specifier/path should be either string or a function: ${path}?`)
             }
-            const output = typeOfPath === 'string' ? thisPath : thisPath(tag)
-            const path = options.singleScript ? `import "${output}";` : output
-            return path
+            return typeOfPath === 'string' ? path : path(tag)
           })
       )]
         .filter(Boolean)
@@ -72,7 +70,7 @@ module.exports = function (options, content, outputPath) {
       }
 
       if (options.singleScript) {
-        const value = arrayOfValues.join('\n')
+        const value = arrayOfValues.map(value => `import "${value}";`).join('\n')
         const child = h('script', { type: 'module' }, [{ type: 'text', value }])
         addChild(body, child, options.position)
       } else {
