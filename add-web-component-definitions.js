@@ -7,6 +7,14 @@ const toHtml = require('hast-util-to-html')
 const isWebComponent = (tag) => tag && (/(\w+(-\w+)+)/g).test(tag)
 const logName = '[add-web-component-definitions]'
 
+const addChild = (body, child, position) => {
+  if (position === 'afterbegin') {
+    body.children.unshift(child)
+  } else {
+    body.children.push(child)
+  }
+}
+
 module.exports = function (options, content, outputPath) {
   if (outputPath.endsWith('.html')) {
     options = Object.assign(
@@ -15,7 +23,8 @@ module.exports = function (options, content, outputPath) {
         path: function (tag) { return `/js/components/${tag}/${tag}.js` },
         position: 'beforeend',
         verbose: false,
-        quiet: false
+        quiet: false,
+        singleScript: false
       },
       options)
 
@@ -43,31 +52,34 @@ module.exports = function (options, content, outputPath) {
     }
 
     if (tags.size) {
-      const value = [...new Set(
+      const arrayOfValues = [...new Set(
         [...tags]
           .map(tag => {
-            const path = options.specifiers[tag] || options.path
-            const typeOfPath = typeof path
+            const thisPath = options.specifiers[tag] || options.path
+            const typeOfPath = typeof thisPath
             if (!['string', 'function'].includes(typeOfPath)) {
-              throw new TypeError(`specifier/path should be either string or a function: ${path}?`)
+              throw new TypeError(`specifier/path should be either string or a function: ${thisPath}?`)
             }
-            const v = typeOfPath === 'string' ? path : path(tag)
-            return v ? `import "${v}";` : null
+            const output = typeOfPath === 'string' ? thisPath : thisPath(tag)
+            const path = options.singleScript ? `import "${output}";` : output
+            return path
           })
       )]
         .filter(Boolean)
-        .join('\n')
 
       if (!options.quiet) {
-        value.split('\n').forEach(v => console.log(logName, v))
+        arrayOfValues.forEach(value => console.log(logName, value))
       }
 
-      const child = h('script', { type: 'module' }, [{ type: 'text', value }])
-
-      if (options.position === 'afterbegin') {
-        body.children.unshift(child)
+      if (options.singleScript) {
+        const value = arrayOfValues.join('\n')
+        const child = h('script', { type: 'module' }, [{ type: 'text', value }])
+        addChild(body, child, options.position)
       } else {
-        body.children.push(child)
+        arrayOfValues.forEach(src => {
+          const child = h('script', { type: 'module', src })
+          addChild(body, child, options.position)
+        })
       }
     }
 
