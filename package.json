@@ -43,7 +43,7 @@
     }
   },
   "scripts": {
-    "release": "standard-version && git push --follow-tags origin master && npm publish",
+    "release": "standard-version",
     "test": "npx ava",
     "demo": "npx @11ty/eleventy --config=demo/.eleventy.js && npx servor demo/_site",
     "lint": "standard",
