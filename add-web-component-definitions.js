@@ -17,13 +17,13 @@ const addChild = (body, child, position) => {
 
 module.exports = function (options, content, outputPath) {
   if (!!options.path && !!options.specifiers) {
-    throw new Error('You may configure a path function or import specifiers, but not both');
+    throw new Error('You may configure a path function or import specifiers, but not both')
   }
 
   if (!options.path && !options.specifiers) {
     options = Object.assign({
-      path(tag) { return `/js/components/${tag}/${tag}.js` },
-    }, options);
+      path (tag) { return `/js/components/${tag}/${tag}.js` }
+    }, options)
   }
 
   if (outputPath.endsWith('.html')) {
@@ -63,18 +63,18 @@ module.exports = function (options, content, outputPath) {
       const arrayOfValues = [...new Set(
         [...tags]
           .map(tag => {
-            const isSpecified = !!options.specifiers;
-            const path = isSpecified ? options.specifiers[tag] : options.path;
+            const isSpecified = !!options.specifiers
+            const path = isSpecified ? options.specifiers[tag] : options.path
             const typeOfPath = typeof path
 
             if (isSpecified && path === undefined) {
-              return;
+              return null
             }
 
             if (!['string', 'function'].includes(typeOfPath)) {
               throw new TypeError(`${isSpecified ? 'specifier' : 'path'} should be either string or a function: ${path}?`)
             }
-            
+
             return typeOfPath === 'string' ? path : path(tag)
           })
       )]
