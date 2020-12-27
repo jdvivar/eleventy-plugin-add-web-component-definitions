@@ -118,7 +118,7 @@ test('Path cannot be a number', t => {
       'index.html'
     )
   }, {
-    message: 'path should be either string or a function: 42?'
+    message: 'Path must be a function: 42?'
   })
 })
 
@@ -129,7 +129,7 @@ test('Specifier cannot be a number', t => {
       'index.html'
     )
   }, {
-    message: 'specifier should be either string or a function: 42?'
+    message: 'Specifier must be either a function or a string: "42" for tag "custom-tag"?'
   })
 })
 
