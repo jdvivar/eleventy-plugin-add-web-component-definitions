@@ -118,7 +118,7 @@ test('Path cannot be a number', t => {
       'index.html'
     )
   }, {
-    message: 'specifier/path should be either string or a function: 42?'
+    message: 'path should be either string or a function: 42?'
   })
 })
 
@@ -129,8 +129,29 @@ test('Specifier cannot be a number', t => {
       'index.html'
     )
   }, {
-    message: 'specifier/path should be either string or a function: 42?'
+    message: 'specifier should be either string or a function: 42?'
   })
+})
+
+test('Specifiers or path but not both', t => {
+  t.throws(() => {
+    addWebComponentDefinitions.bind(null, { path: x => x, specifiers: { 'custom-tag': 42 } })(
+      '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
+      'index.html'
+    )
+  }, {
+    message: 'You may configure a path function or import specifiers, but not both'
+  })
+})
+
+test('Specifiers only add configured tags', t => {
+  t.is(
+    addWebComponentDefinitions.bind(null, { specifiers: { 'custom-tag': '/custom-tag.js' } })(
+      '<html><head></head><body><custom-tag>asdf</custom-tag><unknown-tag>hi</unknown-tag></body></html>',
+      'index.html'
+    ),
+    '<html><head></head><body><custom-tag>asdf</custom-tag><unknown-tag>hi</unknown-tag><script type="module" src="/custom-tag.js"></script></body></html>'
+  )
 })
 
 test('Custom tag with single script', t => {
