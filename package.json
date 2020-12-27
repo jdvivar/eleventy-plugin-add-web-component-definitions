@@ -42,6 +42,9 @@
       "pre-commit": "npm run lint"
     }
   },
+  "commitlint": {
+    "extends": ["@commitlint/config-conventional"]
+  },
   "scripts": {
     "release": "standard-version",
     "pretest": "npm run lint",
