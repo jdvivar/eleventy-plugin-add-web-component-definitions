@@ -44,6 +44,7 @@
   },
   "scripts": {
     "release": "standard-version",
+    "pretest": "npm run lint",
     "test": "npx ava",
     "demo": "npx @11ty/eleventy --config=demo/.eleventy.js && npx servor demo/_site",
     "lint": "standard",
