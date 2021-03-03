@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.2](https://github.com/jdvivar/eleventy-plugin-add-web-component-definitions/compare/v2.0.1...v2.0.2) (2021-03-03)
+
+
+### Bug Fixes
+
+* template:false or without a file extension fixes [#9](https://github.com/jdvivar/eleventy-plugin-add-web-component-definitions/issues/9) ([286ecef](https://github.com/jdvivar/eleventy-plugin-add-web-component-definitions/commit/286ecefea61f41216aa4c4880465485bcf2151c5))
+
 ### [2.0.1](https://github.com/jdvivar/eleventy-plugin-add-web-component-definitions/compare/v2.0.0...v2.0.1) (2020-12-27)
 
 

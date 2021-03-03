@@ -1,6 +1,6 @@
 {
   "name": "eleventy-plugin-add-web-component-definitions",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "main": "index.js",
   "keywords": [
@@ -43,7 +43,9 @@
     }
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "scripts": {
     "release": "standard-version",
