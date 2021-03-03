@@ -21,6 +21,36 @@ test('Is html', t => {
   )
 })
 
+test('Is not output', t => {
+  t.is(
+    addWebComponentDefinitions.bind(null, {})(
+      '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
+      false
+    ),
+    '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>'
+  )
+})
+
+test('Undefined output path extension, is not html', t => {
+  t.is(
+    addWebComponentDefinitions.bind(null, {})(
+      'console.log("whatever")',
+      'whatever'
+    ),
+    'console.log("whatever")'
+  )
+})
+
+test('Undefined output path extension, is html', t => {
+  t.is(
+    addWebComponentDefinitions.bind(null, {})(
+      '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
+      'whatever'
+    ),
+    '<html><head></head><body><custom-tag>asdf</custom-tag><script type="module" src="/js/components/custom-tag/custom-tag.js"></script></body></html>'
+  )
+})
+
 test('h1 tag', t => {
   t.is(
     addWebComponentDefinitions.bind(null, {})(

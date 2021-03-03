@@ -16,11 +16,13 @@ const addChild = (body, child, position) => {
 }
 
 module.exports = function (options, content, outputPath) {
+  if (typeof outputPath !== 'string' || !outputPath) { return content }
+
   if (!!options.path && !!options.specifiers) {
     throw new Error('You may configure a path function or import specifiers, but not both')
   }
 
-  if (outputPath.endsWith('.html')) {
+  if (outputPath.endsWith('.html') || content.startsWith('<')) {
     options = Object.assign(
       {
         path: tag => `/js/components/${tag}/${tag}.js`,
