@@ -41,6 +41,16 @@ test('Undefined output path extension, is not html', t => {
   )
 })
 
+test('Undefined output path extension, it looks like html but it\'s not html', t => {
+  t.is(
+    addWebComponentDefinitions.bind(null, {})(
+      '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0">whatever</rss>',
+      'whatever'
+    ),
+    '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0">whatever</rss>'
+  )
+})
+
 test('Undefined output path extension, is html', t => {
   t.is(
     addWebComponentDefinitions.bind(null, {})(

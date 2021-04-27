@@ -93,6 +93,8 @@ module.exports = function (options, content, outputPath) {
           addChild(body, child, options.position)
         })
       }
+    } else {
+      return content
     }
 
     return toHtml(tree)
