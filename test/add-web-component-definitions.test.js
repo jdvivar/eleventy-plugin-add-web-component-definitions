@@ -81,6 +81,16 @@ test('Custom tag', t => {
   )
 })
 
+test('modulepreload link', t => {
+  t.is(
+    addWebComponentDefinitions.bind(null, { modulePreload: true })(
+      '<html><head></head><body><custom-tag>asdf</custom-tag></body></html>',
+      'index.html'
+    ),
+    '<html><head><link rel="modulepreload" href="/js/components/custom-tag/custom-tag.js"></head><body><custom-tag>asdf</custom-tag><script type="module" src="/js/components/custom-tag/custom-tag.js"></script></body></html>'
+  )
+})
+
 test('Configure path', t => {
   t.is(
     addWebComponentDefinitions.bind(null, { path: tag => `/test/${tag}.js` })(
