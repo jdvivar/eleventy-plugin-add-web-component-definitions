@@ -1,6 +1,6 @@
 {
   "name": "eleventy-plugin-add-web-component-definitions",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "",
   "main": "index.js",
   "keywords": [
@@ -27,20 +27,14 @@
     "unist-util-visit": "^2.0.3"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^0.11.1",
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "ava": "^3.14.0",
-    "husky": "^4.2.5",
+    "@11ty/eleventy": "^0.12.1",
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "ava": "^4.0.0",
+    "husky": "^7.0.4",
     "servor": "^4.0.2",
-    "standard": "^16.0.3",
-    "standard-version": "^9.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm run lint"
-    }
+    "standard": "^16.0.4",
+    "standard-version": "^9.3.2"
   },
   "commitlint": {
     "extends": [
@@ -53,7 +47,8 @@
     "test": "npx ava",
     "demo": "npx @11ty/eleventy --config=demo/.eleventy.js && npx servor demo/_site",
     "lint": "standard",
-    "lint-fix": "standard --fix"
+    "lint-fix": "standard --fix",
+    "prepare": "husky install"
   },
   "repository": "github:jdvivar/eleventy-plugin-add-web-component-definitions",
   "ava": {
