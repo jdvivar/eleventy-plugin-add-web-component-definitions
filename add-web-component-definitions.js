@@ -30,7 +30,8 @@ module.exports = function (options, content, outputPath) {
         position: 'beforeend',
         verbose: false,
         quiet: false,
-        singleScript: false
+        singleScript: false,
+        modulePreload: false
       },
       options)
 
@@ -60,11 +61,14 @@ module.exports = function (options, content, outputPath) {
 
     const tags = new Set()
     const tree = toHast(parse(content))
-    let body
+    let body, head
 
     visit(tree, 'element', (node) => {
       if (!body && node.tagName === 'body') {
         body = node
+      }
+      if (!head && node.tagName === 'head') {
+        head = node
       }
       if (isWebComponent(node.tagName)) {
         tags.add(node.tagName)
@@ -91,6 +95,10 @@ module.exports = function (options, content, outputPath) {
         arrayOfValues.forEach(src => {
           const child = h('script', { type: 'module', src })
           addChild(body, child, options.position)
+
+          if (options.modulePreload) {
+            head.children.push(h('link', { rel: 'modulepreload', href: src }))
+          }
         })
       }
     } else {

@@ -50,6 +50,7 @@ module.exports = function(eleventyConfig) {
 | `verbose`      | `Boolean`  | `false`          | It will console log each step, for debug purposes |
 | `quiet`        | `Boolean`  | `false`          | It won't console log anything. By default, a log of each Web Component definition is log out with this format: `[add-web-component-definitions] Adding definition for tag: custom-tag`|
 | `singleScript` | `Boolean` | `false`           | If true, only one script with import statements will be output: `<script type="module">import "js/components/custom-tag.js;</script>` |
+| `modulePreload` | `Boolean` | `false`           | If true (and `singleScript` is `false`), it will add modulepreload links to the head of the document using the `path` function |
 
 ### Example
 
