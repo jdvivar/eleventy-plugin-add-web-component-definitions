@@ -47,7 +47,8 @@
     "test": "npx ava",
     "demo": "npx @11ty/eleventy --config=demo/.eleventy.js && npx servor demo/_site",
     "lint": "standard",
-    "lint-fix": "standard --fix"
+    "lint-fix": "standard --fix",
+    "prepare": "husky install"
   },
   "repository": "github:jdvivar/eleventy-plugin-add-web-component-definitions",
   "ava": {
