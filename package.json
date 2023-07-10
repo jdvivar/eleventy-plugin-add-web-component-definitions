@@ -27,7 +27,7 @@
     "unist-util-visit": "^2.0.3"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy": "^2.0.1",
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
     "ava": "^4.0.0",
