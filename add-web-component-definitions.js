@@ -16,7 +16,7 @@ const addChild = (body, child, position) => {
 }
 
 module.exports = function (options, content, outputPath) {
-  if (typeof outputPath !== 'string' || !outputPath) { return content }
+  if (typeof outputPath !== 'string' || !outputPath || !content) { return content }
 
   if (!!options.path && !!options.specifiers) {
     throw new Error('You may configure a path function or import specifiers, but not both')
