@@ -11,6 +11,16 @@ test('Not html', t => {
   )
 })
 
+test('Undefined with non-html files', t => {
+  t.is(
+    addWebComponentDefinitions.bind(null, {})(
+      undefined,
+      'main.css'
+    ),
+    undefined
+  )
+})
+
 test('Is html', t => {
   t.is(
     addWebComponentDefinitions.bind(null, {})(
