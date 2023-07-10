@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/jdvivar/eleventy-plugin-add-web-component-definitions/compare/v2.1.2...v2.2.0) (2023-07-10)
+
+
+### Features
+
+* adding undefined content with non-html files edge case ([6e91928](https://github.com/jdvivar/eleventy-plugin-add-web-component-definitions/commit/6e91928e5ed8ec5941d6677af3f1c872a8902467))
+
 ### [2.1.2](https://github.com/jdvivar/eleventy-plugin-add-web-component-definitions/compare/v2.1.1...v2.1.2) (2022-04-01)
 
 ### [2.1.1](https://github.com/jdvivar/eleventy-plugin-add-web-component-definitions/compare/v2.1.0...v2.1.1) (2022-01-03)
